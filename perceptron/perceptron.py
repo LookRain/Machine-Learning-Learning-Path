@@ -40,14 +40,27 @@ def main():
   local_error = 0
   global_error = 0
   output = 0
-  while(True):
+  should_stop = False
+  while(not should_stop):
+   
     iteration += 1
+    global_error = 0
 
     for ind in range(NUM_INSTANCES):
       output = cal_output(theta, weights, x[ind], y[ind])
       local_error = truth[ind] - output
-      print(local_error)
+      # print(local_error)
+      weights[0] += LEARNING_RATE * local_error * x[ind]
+      weights[1] += LEARNING_RATE * local_error * y[ind]
+      weights[2] += LEARNING_RATE * local_error
 
+      global_error += (local_error * local_error)
+      print(global_error)
+      if (global_error == 0 or iteration > MAX_ITER):
+        should_stop = True
+        break
+  str = "{}*x + {}*y + {} = 0"
+  print(str.format(weights[0], weights[1], weights[2]))
 
 
     # if (test == 10):
