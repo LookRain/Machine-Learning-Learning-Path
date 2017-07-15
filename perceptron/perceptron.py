@@ -16,35 +16,62 @@ def graph(formula, x_range):
     plt.show()
 
 def main():
-	x = []
-	y = []
+  x = []
+  y = []
+  truth = []
 
-	truth = np.zeros(NUM_INSTANCES)
+  # for ind, item in enumerate(x):
+  #   x[ind] = random.uniform(0, 10)
 
-	# for ind, item in enumerate(x):
-	# 	x[ind] = random.uniform(0, 10)
+  for i in range(50):
+    x.append(random.uniform(0, 10))
+    y.append(random.uniform(10, 20))
+    truth.append(1)
 
-	for i in range(50):
-		x.append(random.uniform(0, 10))
-		y.append(random.uniform(10, 20))
+  for j in range(50, 100):
+    x.append(random.uniform(10, 20))
+    y.append(random.uniform(0, 10))
+    truth.append(0)
 
-	for j in range(50, 100):
-		x.append(random.uniform(10, 20))
-		y.append(random.uniform(0, 10))
+  weights = [random.uniform(0, 1), random.uniform(0, 1), random.uniform(0, 1)]
 
-	print(len(x))
+  iteration = 0
+  # print(cal_output(0, [1,2,3], 1, 2))
+  local_error = 0
+  global_error = 0
+  output = 0
+  while(True):
+    iteration += 1
 
-	# for item in enumerate(y):
-	# 	y[ind] = random.uniform(10, 20)
-	
-	# sampl = np.random.uniform(low=0.5, high=13.3, size=(50,))
+    for ind in range(NUM_INSTANCES):
+      output = cal_output(theta, weights, x[ind], y[ind])
+      local_error = truth[ind] - output
+      print(local_error)
 
 
 
-	plt.plot(x, y, 'ro')
-	plt.axis([0, 20, 0, 20])
+    # if (test == 10):
+    #   break
+    # test += 1
+    # print(test)
 
-	plt.show()
-	# print(data_points)
+
+  
+
+
+
+  plt.plot(x, y, 'ro')
+  plt.axis([0, 20, 0, 20])
+
+  plt.show()
+
+def cal_output(t, w, x, y):
+  sum = x * w[0] + y * w[1] + w[2]
+  if (sum >= t):
+    return 1
+  else:
+    return 0
+
 
 main()
+
