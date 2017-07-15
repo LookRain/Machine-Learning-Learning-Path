@@ -9,10 +9,10 @@ MAX_ITER = 100
 LEARNING_RATE = 0.1
 NUM_INSTANCES = 100
 theta = 0
-def graph(formula, x_range):  
+def graph(formula, x_range, c, l):  
     x = np.array(x_range)  
     y = eval(formula)
-    plt.plot(x, y)  
+    plt.plot(x, y, c, label=l)  
     
 
 def main():
@@ -40,7 +40,7 @@ def main():
   local_error = 0
   global_error = 0
   output = 0
-  should_stop = False
+  
   while(True):
    
     iteration += 1
@@ -55,8 +55,10 @@ def main():
       weights[2] += LEARNING_RATE * local_error
       global_error += (local_error * local_error)
     print("RMS Error: %n", global_error)
+    equation = "-({}/{})*x-{}/{}"
+    final_equation = equation.format(weights[0], weights[1], weights[2], weights[1])
+    graph(final_equation, range(0,20), 'aqua', iteration)
     if (global_error == 0 or iteration > MAX_ITER):
-
       break
 
       
@@ -65,7 +67,7 @@ def main():
   equation = "-({}/{})*x-{}/{}"
   final_equation = equation.format(weights[0], weights[1], weights[2], weights[1])
   print(final_equation)
-  graph(final_equation, range(0,20))
+  graph(final_equation, range(0,20), 'red', 'final')
 
     # if (test == 10):
     #   break
@@ -79,7 +81,7 @@ def main():
 
   plt.plot(x, y, 'ro')
   plt.axis([0, 20, 0, 20])
-
+  plt.legend()
   plt.show()
 
 def cal_output(t, w, x, y):
