@@ -5,7 +5,7 @@ import random
 # plt.ylabel('some numbers')
 # plt.show()
 
-MAX_ITER = 10
+MAX_ITER = 100
 LEARNING_RATE = 0.1
 NUM_INSTANCES = 100
 theta = 0
@@ -41,7 +41,7 @@ def main():
   global_error = 0
   output = 0
   should_stop = False
-  while(not should_stop):
+  while(True):
    
     iteration += 1
     global_error = 0
@@ -53,12 +53,13 @@ def main():
       weights[0] += LEARNING_RATE * local_error * x[ind]
       weights[1] += LEARNING_RATE * local_error * y[ind]
       weights[2] += LEARNING_RATE * local_error
-
       global_error += (local_error * local_error)
-      print(global_error)
-      if (global_error == 0 and iteration > MAX_ITER):
-        should_stop = True
-        break
+    print("RMS Error: %n", global_error)
+    if (global_error == 0 or iteration > MAX_ITER):
+
+      break
+
+      
   str = "{}*x + {}*y + {} = 0"
   print(str.format(weights[0], weights[1], weights[2]))
   equation = "-({}/{})*x-{}/{}"
