@@ -5,7 +5,7 @@ import random
 # plt.ylabel('some numbers')
 # plt.show()
 
-MAX_ITER = 100
+MAX_ITER = 10
 LEARNING_RATE = 0.1
 NUM_INSTANCES = 100
 theta = 0
@@ -13,7 +13,7 @@ def graph(formula, x_range):
     x = np.array(x_range)  
     y = eval(formula)
     plt.plot(x, y)  
-    plt.show()
+    
 
 def main():
   x = []
@@ -56,12 +56,15 @@ def main():
 
       global_error += (local_error * local_error)
       print(global_error)
-      if (global_error == 0 or iteration > MAX_ITER):
+      if (global_error == 0 and iteration > MAX_ITER):
         should_stop = True
         break
   str = "{}*x + {}*y + {} = 0"
   print(str.format(weights[0], weights[1], weights[2]))
-
+  equation = "-({}/{})*x-{}/{}"
+  final_equation = equation.format(weights[0], weights[1], weights[2], weights[1])
+  print(final_equation)
+  graph(final_equation, range(0,20))
 
     # if (test == 10):
     #   break
