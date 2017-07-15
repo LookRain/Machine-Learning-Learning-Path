@@ -59,7 +59,15 @@ class Perception {
 	  System.out.println("\n=======\nDecision boundary equation:");
 		System.out.println(weights[0] +"*x + "+weights[1]+"*y +  " + weights[3]+" = 0");
 
+		for(int j = 0; j < 10; j++){
+			double x1 = genRandom(0 , 20);
+			double y1 = genRandom(0 , 20);   
 
+			output = calOutput(theta, weights, x1, y1);
+			System.out.println("\n=======\nNew Random Point:");
+			System.out.println("x = "+x1+",y = "+y1);
+			System.out.println("class = "+output);
+		}
 	}
 
 	public static double genRandom(int min, int max) {
